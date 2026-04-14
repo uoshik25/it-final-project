@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header class="navbar-wrapper">
+      <nav class="platform-nav" aria-label="Main">
+        <a class="platform-item" href="index.html" title="Home">
+          <span class="platform-icon ico-home">🏠</span>
+          <span class="label">Home</span>
+        </a>
+        <a class="platform-item" href="gallery.html" title="Games">
+          <span class="platform-icon ico-games">🎮</span>
+          <span class="label">Games</span>
+        </a>
+        <a class="platform-item" href="contact.html" title="Contact">
+          <span class="platform-icon ico-contact">✉️</span>
+          <span class="label">Contact</span>
+        </a>
+        <a class="platform-item" href="#" title="Deals">
+          <span class="platform-icon ico-deals">💸</span>
+          <span class="label">Deals</span>
+        </a>
+        <a class="platform-item" href="about.html" title="About">
+          <span class="platform-icon ico-upcoming">📰</span>
+          <span class="label">About</span>
+        </a>
+
+        <div class="search-wrap">
+          <button class="search-btn" id="searchBtn">🔍</button>
+        </div>
+      </nav>
+    </header>
+
+    <script>
+      /* Your existing Search JS remains exactly the same */
+      (function () {
+        const searchBtn = document.getElementById("searchBtn");
+        let overlay = null;
+        function createOverlay() {
+          overlay = document.createElement("div");
+          overlay.className = "floating-search";
+          overlay.innerHTML = `<input type="search" placeholder="Search games..."/><button class="close-btn">✕</button>`;
+          document.body.appendChild(overlay);
+          const input = overlay.querySelector("input");
+          const close = overlay.querySelector(".close-btn");
+          setTimeout(() => input.focus(), 120);
+          close.addEventListener("click", removeOverlay);
+          function onDocClick(e) {
+            if (!overlay.contains(e.target) && e.target !== searchBtn)
+              removeOverlay();
+          }
+          document.addEventListener("pointerdown", onDocClick);
+          overlay._cleanup = () =>
+            document.removeEventListener("pointerdown", onDocClick);
+        }
+        function removeOverlay() {
+          if (!overlay) return;
+          overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
+            duration: 200,
+          }).onfinish = () => {
+            if (overlay._cleanup) overlay._cleanup();
+            overlay.remove();
+            overlay = null;
+          };
+        }
+        searchBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          overlay ? removeOverlay() : createOverlay();
+        });
+      })();
+    </script>
+
+    <footer class="game-footer">
+      <div class="footer-container">
+        <div class="footer-column brand-section">
+          <h2 class="footer-logo">PIXEL<span>VAULT</span></h2>
+          <p>
+            Your ultimate destination for digital keys and legendary adventures.
+          </p>
+          <div class="social-icons">
+            <a href="#">Discord</a>
+            <a href="#">Twitch</a>
+            <a href="#">X</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="gallery.html">New Releases</a></li>
+            <li><a href="gallery.html">Top Sellers</a></li>
+            <li><a href="News.html">Special Offers</a></li>
+            <li><a href="News.html">Gift Cards</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="contact.html">Help Center</a></li>
+            <li><a href="contact.html">Refund Policy</a></li>
+            <li><a href="contact.html">System Specs</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column newsletter">
+          <h3>Stay Updated</h3>
+          <p>Get the latest patches and deals.</p>
+          <form class="subscribe-form">
+            <input type="email" placeholder="Email Address" />
+            <button type="submit">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 PixelVault Games. All Rights Reserved.</p>
+        <div class="payment-methods">
+          <span>VISA</span> | <span>PayPal</span> | <span>BTC</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

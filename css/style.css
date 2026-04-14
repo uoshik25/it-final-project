@@ -1,0 +1,471 @@
+/* ===== 1. CORE SETUP & VARIABLES ===== */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --bg-glass: rgba(20, 22, 26, 0.65);
+  --accent: #ff6b2f;
+  --text: #e9f2ff;
+  --muted: rgba(138, 180, 239, 0.7);
+  --mirror-blur: 20px;
+  --font-pixel: "Press Start 2P", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  background: #222121;
+  .gallery {
+    display: grid;
+    /* Creates 3 columns. Change 1fr to 400px if you want fixed widths */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 50px;
+  }
+
+  /* Common Card Style */
+  .card {
+    position: relative; /* This is the "Anchor" that allows moving */
+    width: 370px;
+    color: black;
+  }
+
+  /* --- MANUAL CONTROLS START HERE --- */
+
+  .pos-1 {
+    grid-column: 1; /* First Column */
+    grid-row: 1; /* First Row */
+    top: 20px; /* Move it down 20px */
+    left: 10px; /* Move it right 10px */
+  }
+
+  .pos-2 {
+    grid-column: 2; /* Middle Column */
+    grid-row: 2; /* Second Row */
+    top: 100px; /* Move it down 100px */
+    left: -50px; /* Move it left 50px */
+  }
+  .pos-3 {
+    grid-column: 2.5; /* Middle Column */
+    grid-row: 3; /* Second Row */
+    top: 170px; /* Move it down 100px */
+    left: -20px; /* Move it left 50px */
+  }
+
+  /* --- MANUAL CONTROLS END HERE --- */
+
+  .video-container {
+    position: relative;
+    width: 370px;
+    height: 250px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 12px;
+    background: #000; /* Keeps it clean if image loads slow */
+  }
+
+  .thumbnail,
+  .hover-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .hover-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .video-container:hover .hover-video {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  .video-container:hover .thumbnail {
+    opacity: 0;
+  }
+
+  color: var(--text);
+  overflow-x: hidden;
+  font-family: Inter, system-ui, sans-serif;
+  min-height: 100vh;
+}
+/* ===== 2. THE MIRROR NAVBAR (PINNED TO TOP) ===== */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.platform-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-glass);
+  padding: 10px 16px;
+  border-radius: 999px;
+  z-index: 1000;
+  /* FIXED POSITIONING */
+  position: fixed;
+  top: 35px;
+  left: 50%; /* Start at the horizontal center */
+  transform: translateX(
+    -50%
+  ); /* Pull it back by half its own width to center it */
+
+  /* RESPONSIVE WIDTH */
+  width: 90%; /* Occupy 90% of the screen on small displays */
+  max-width: 794px; /* But never get wider than 780px on big displays */
+
+  backdrop-filter: blur(var(--mirror-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--mirror-blur)) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  /* Keep your animation, but note the updated transform below */
+  animation: navEntrance 0.6s cubic-bezier(0.22, 0.9, 0.36, 1);
+}
+.fixed-logo {
+  position: fixed;
+  top: -16px; /* Distance from top */
+  left: -465px; /* Distance from left */
+  z-index: 2000; /* Higher than navbar and gallery */
+}
+
+.logo-img {
+  height: 100px; /* Adjust size as needed */
+  width: auto;
+  filter: drop-shadow(
+    0 0 10px rgba(0, 0, 0, 0.5)
+  ); /* Makes it pop against video */
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.1);
+}
+
+/* Since the logo is now on the far left, you might want to 
+   add padding to your navbar links so they don't overlap 
+*/
+.platform-nav {
+  padding-left: 15px; /* Pushes links to the right to clear the logo */
+}
+
+/* Ensure gallery doesn't hide behind the fixed logo */
+.home-gallery {
+  position: relative;
+  z-index: 10;
+}
+.platform-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.platform-item:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.platform-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.platform-item:hover .platform-icon {
+  transform: translateY(-4px) rotate(-6deg) scale(1.1);
+}
+
+/* Icons Gradients */
+.ico-home {
+  background: linear-gradient(180deg, #6cc1ff, #2b8fe6);
+}
+.ico-games {
+  background: linear-gradient(180deg, #2b6bd6, #1849b0);
+}
+.ico-contact {
+  background: linear-gradient(180deg, #f6b26b, #d97b2b);
+}
+.ico-deals {
+  background: linear-gradient(180deg, #ff5d8a, #ff2f5a);
+}
+.ico-upcoming {
+  background: linear-gradient(180deg, #9b59b6, #6a3f96);
+}
+
+/* ===== 3. CENTERED CONTENT ===== */
+
+.floating-search {
+  position: fixed;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  min-width: 320px;
+  max-width: 720px;
+  border-radius: 999px;
+
+  /* UPDATED TO GRAY */
+  background: rgba(45, 45, 45, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+
+  animation: searchEntrance 280ms cubic-bezier(0.22, 0.9, 0.36, 1) both;
+}
+
+.floating-search input {
+  flex: 1;
+  border: 0;
+  padding: 12px 16px;
+  border-radius: 999px;
+  /* DARKER GRAY FOR INPUT */
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+}
+
+.floating-search .close-btn {
+  border: 0;
+  background: transparent;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.floating-search .close-btn:hover {
+  color: white;
+}
+
+/* ===== 5. ANIMATIONS & RESPONSIVE ===== */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes navEntrance {
+  from {
+    opacity: 0;
+    /* Maintain the -50% centering while moving it up/down */
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+@keyframes searchEntrance {
+  from {
+    transform: translateX(-50%) translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes gentleFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@media (max-width: 520px) {
+  .platform-item span.label {
+    display: none;
+  }
+  .title-large {
+    font-size: 2.5rem;
+  }
+  .title-small {
+    font-size: 1.5rem;
+  }
+  .floating-search {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    top: 12px;
+    min-width: auto;
+  }
+}
+
+.search-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  background: linear-gradient(135deg, #ff7a47, #ff4a2a);
+  box-shadow: 0 6px 18px rgba(255, 74, 42, 0.28);
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  transform: scale(1.3); /* bigger visually */
+  transform-origin: center;
+  transition: transform 0.22s;
+}
+
+:root {
+  --bg-color: #0b0e14;
+  --accent-color: rgb(202, 44, 44); /* Neon Purple */
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --nav-hover: #c084fc;
+}
+
+.game-footer {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding: 60px 20px 20px;
+  font-family: "Segoe UI", sans-serif;
+  border-top: 2px solid var(--accent-color);
+  z-index: 1000;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.footer-logo span {
+  color: var(--accent-color);
+}
+
+.footer-column h3 {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: var(--accent-color);
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+  color: var(--nav-hover);
+}
+
+/* Newsletter Styles */
+.subscribe-form {
+  display: flex;
+  margin-top: 15px;
+}
+
+.subscribe-form input {
+  padding: 10px;
+  background: #1a1f29;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  width: 100%;
+}
+
+.subscribe-form button {
+  padding: 10px 20px;
+  background: var(--accent-color);
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}

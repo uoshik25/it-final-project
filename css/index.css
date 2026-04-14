@@ -1,0 +1,195 @@
+.video-bg {
+  position: fixed; /* cover viewport */
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  z-index: -1; /* behind page content */
+  overflow: hidden;
+}
+.video-bg__media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* fills container, crops as needed */
+  pointer-events: none; /* avoid intercepting clicks */
+}
+.video-bg__content {
+  position: relative;
+  z-index: 1;
+}
+
+/* optional dark overlay for better text contrast */
+.video-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+}
+.main-content {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.banner-container {
+  font-family: var(--font-pixel);
+  z-index: 10;
+  animation: gentleFloat 4s ease-in-out infinite;
+}
+
+.title-small {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin: 0 0 15px 0;
+  letter-spacing: 3px;
+  -webkit-text-stroke: 4px #666666;
+  text-shadow:
+    0px 6px 0px #000000,
+    0 0 20px rgba(255, 255, 255, 0.6);
+  animation: slideDown 0.6s ease-out;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+}
+
+.title-large {
+  position: relative;
+  font-size: 5rem;
+  margin: 10px 0 25px 0;
+  letter-spacing: 5px;
+  color: #ffffff;
+  z-index: 1;
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))
+    drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+}
+
+.title-large::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  -webkit-text-stroke: 12px #666666;
+  text-shadow: 0px 12px 0px #000000;
+}
+
+.subtitle {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: 2px;
+  -webkit-text-stroke: 3px #666666;
+  text-shadow:
+    0px 5px 0px #000000,
+    0 0 15px rgba(255, 255, 255, 0.5);
+  animation: slideUp 0.8s ease-out 0.4s backwards;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+}
+
+.home-gallery {
+  max-width: 1400px; /* Adjusted for 3 cards */
+  min-height: auto;
+  background-color: #1a1f29;
+  width: 90%;
+  border-radius: 50px;
+  margin: 0 auto 100px auto;
+  padding: 60px 40px;
+}
+
+.gallery {
+  display: grid;
+  /* Forces exactly 3 columns */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px; /* Even spacing between cards */
+  justify-items: center;
+}
+
+.card {
+  width: 100%;
+  background: #252b36;
+  border-radius: 15px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+.card-info {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.card-text h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.card-text p {
+  margin: 5px 0 0;
+  font-size: 0.85rem;
+  color: #8892b0;
+}
+
+.price-tag {
+  background: #4caf50;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Video Hover Effects */
+.thumbnail,
+.hover-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+.hover-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.video-container:hover .hover-video {
+  opacity: 1;
+}
+
+.video-container:hover .thumbnail {
+  opacity: 0;
+}
+
+/* Quick Mobile Fix: Switch to 1 column on small screens */
+@media (max-width: 900px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}

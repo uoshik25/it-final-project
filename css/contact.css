@@ -1,0 +1,192 @@
+.main-content {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+
+  /* POSITIONING CONTROLS */
+  /* Change 'center' to 'flex-start' (left/top) or 'flex-end' (right/bottom) */
+  justify-content: center; /* Horizontal position */
+  align-items: center; /* Vertical position */
+  text-align: center;
+  position: relative;
+}
+
+.banner-container {
+  font-family: var(--font-pixel);
+  z-index: 10;
+  position: relative;
+  top: -120px;
+  left: 21px;
+  /* Removed gentleFloat animation to stop bouncing */
+}
+
+.title-small {
+  color: #ffffff;
+  font-size: 2.5rem;
+  margin: 0 0 15px 0;
+  letter-spacing: 3px;
+  -webkit-text-stroke: 4px #666666;
+  text-shadow:
+    0px 6px 0px #000000,
+    0 0 20px rgba(234, 55, 55, 0.6);
+  /* Optional: Keep or remove slideDown for the initial entrance */
+  animation: slideDown 0.6s ease-out;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
+}
+
+.title-large {
+  position: relative;
+  font-size: 5rem;
+  margin: 10px 0 25px 0;
+  letter-spacing: 5px;
+  color: #ffffff;
+  z-index: 1;
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6))
+    drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8));
+}
+
+.title-large::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  -webkit-text-stroke: 12px #666666;
+  text-shadow: 0px 12px 0px #000000;
+}
+
+.subtitle {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: 2px;
+  -webkit-text-stroke: 3px #666666;
+  text-shadow:
+    0px 5px 0px #000000,
+    0 0 15px rgba(255, 255, 255, 0.5);
+  animation: slideUp 0.8s ease-out 0.4s backwards;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.8));
+}
+
+/* Container to hold the boxes */
+/* Replace your .box-container and individual .box-1, .box-2, etc. styles */
+
+/* Centers the entire collection of boxes */
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto; /* Centers the container itself */
+  padding: 20px;
+  margin-top: -250px;
+}
+
+/* Base style for all boxes */
+.zoom-box {
+  width: 320px;
+  min-height: 280px;
+  background-color: #222020;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Remove 'position: relative', 'top', and 'left' from here */
+}
+
+/* Remove your old .box-1, .box-2, .box-3, .box-4 positioning rules! */
+.box-1,
+.box-2,
+.box-4 {
+  top: -90px !important;
+  left: 0 !important;
+}
+
+/* Adjust hover scale - 2.7x is very large, 1.5x - 1.8x usually looks cleaner */
+.zoom-box:hover {
+  transform: scale(1.5);
+  z-index: 100;
+  box-shadow: 0 0 30px rgba(234, 55, 55, 0.4);
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 80%;
+  margin-top: 10px;
+}
+
+/* Style the Inputs and Textarea */
+.contact-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #111;
+  color: white;
+  font-family: inherit;
+  font-size: 0.7rem; /* Smaller font because the box scales up 2.7x */
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.contact-input:focus {
+  border-color: #ea3737; /* Matches your title glow color */
+}
+
+/* Style the Submit Button */
+.submit-btn {
+  background: #ea3737;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #ff4d4d;
+}
+
+/* Fix for Box 2 specifically during zoom */
+.box-2:hover .contact-input,
+.box-2:hover .submit-btn {
+  cursor: text; /* Ensures user knows they can type */
+}
+.contact-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 0.9rem; /* Increased size for better readability */
+  transition: all 0.3s ease;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  background: linear-gradient(
+    45deg,
+    #ea3737,
+    #b22222
+  ); /* Gradient looks more modern */
+  box-shadow: 0 4px 15px rgba(234, 55, 55, 0.4);
+}
