@@ -10,23 +10,48 @@
 
 .gallery {
   display: grid;
-  /* Forces exactly 3 columns */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px; /* Even spacing between cards */
+  /* Increased min-width from 400px to 500px to make them much wider */
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 60px;
   justify-items: center;
+  /* Pushes the gallery lower to clear the fixed navbar */
+  margin-top: 150px;
+  padding: 0 50px;
+  margin-bottom: 120px;
 }
 
 .card {
   width: 100%;
+  /* Increased max-width to allow the box to expand significantly */
+  max-width: 600px;
   background: #252b36;
-  border-radius: 15px;
+  border-radius: 20px; /* Slightly rounder for the larger size */
   overflow: hidden;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
+.video-container {
+  position: relative;
+  width: 100%;
+  /* Keeps the 16:9 cinematic ratio as the box gets wider */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Adjusting text size slightly for the bigger boxes */
+.card-text h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.card-text p {
+  font-size: 1rem;
+}
 .card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
@@ -46,18 +71,6 @@
   justify-content: space-between;
   align-items: center;
   color: #fff;
-}
-
-.card-text h4 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.card-text p {
-  margin: 5px 0 0;
-  font-size: 0.85rem;
-  color: #8892b0;
 }
 
 .price-tag {
