@@ -1,0 +1,152 @@
+/* ── Layout & Hero ── */
+
+.main-content {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 40px;
+  /* Dark, semi-transparent base that sits behind all cards */
+  background: rgba(20, 20, 30, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+}
+
+/* ── Hero Spacing ── */
+.deals-hero {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ── Grid Adjustment ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* ── Card Refinement ── */
+.glass-card {
+  /* Slightly lighter than the main container to pop out */
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  border-color: #ff6b35; /* Matching the PORKCHOP brand orange */
+  transform: translateY(-2px);
+}
+
+/* ── Full Width Elements ── */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.deals-hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0;
+  color: #fff;
+}
+
+.deals-hero h1 span {
+  color: #ff6b35; /* Primary Orange accent from News.html */
+}
+
+/* ── Specific Deal Elements ── */
+.price-tag {
+  color: #ff6b35;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #666;
+  font-size: 0.95rem;
+  margin-right: 8px;
+}
+
+.discount-badge {
+  background: #ff6b35;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* ── Promo Code Box ── */
+.promo-section {
+  border: 1px dashed #ff6b35 !important; /* Dotted border for "coupon" feel */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 107, 53, 0.05) !important;
+}
+
+.promo-code {
+  font-family: "Courier New", monospace;
+  color: #ff6b35;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+/* ── Gift Card Grid ── */
+.gc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.gc-item {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.gc-item:hover {
+  transform: translateY(-5px);
+  border-color: #ff6b35;
+}
+
+/* ── Buttons ── */
+.btn-action {
+  display: inline-block;
+  background: #ff6b35;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-action:hover {
+  background: #e55a25;
+}
+/* Core About-Grid Styles */
+
+.full-width {
+  grid-column: 1 / -1; /* Ensures featured deals span the whole row */
+}
+
+.glass-card h3 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 1.5rem;
+}
