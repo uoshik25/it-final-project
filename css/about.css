@@ -6,11 +6,11 @@
 }
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 1100px;
-  margin: -40px auto 80px;
-  padding: 0 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px; /* Adjust this to match the exact gap in your gallery */
+  padding: 40px 20px; /* Space around the entire grid */
+  max-width: 1200px; /* Keeps the content centered and readable */
+  margin: 0 auto; /* Centers the grid on the page */
 }
 
 .glass-card {

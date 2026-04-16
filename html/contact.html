@@ -182,32 +182,51 @@
         });
       });
     </script>
-    <script>// Function to clear the feedback box
+
+<script>
 function handleFormSubmit(buttonId, boxClass) {
   const btn = document.getElementById(buttonId);
   if (!btn) return;
 
   btn.addEventListener("click", function() {
-    // Find all inputs within this specific box
-    const inputs = document.querySelectorAll(`${boxClass} .contact-input`);
+    // This finds ALL input and textarea elements within the box
+    const inputs = document.querySelectorAll(`${boxClass} input, ${boxClass} textarea`);
     
-    // Clear all found inputs
-    inputs.forEach(input => input.value = "");
+    // Check if at least one field has text
+    let hasContent = false;
+    inputs.forEach(input => {
+      if (input.value.trim() !== "") {
+        hasContent = true;
+      }
+    });
 
-    // Feedback animation
-    const originalText = this.innerText;
-    this.innerText = "SUCCESS ✓";
-    this.style.background = "#2ecc71";
+    if (hasContent) {
+      // 1. Success Alert
+      alert("summit seccesfull");
 
-    setTimeout(() => {
-      this.innerText = originalText;
-      this.style.background = ""; // Resets to CSS gradient
-    }, 2000);
+      // 2. Clear all fields
+      inputs.forEach(input => input.value = "");
+
+      // 3. Button Animation
+      const originalText = this.innerText;
+      this.innerText = "SUCCESS ✓";
+      const originalBg = this.style.background;
+      this.style.background = "#2ecc71";
+
+      setTimeout(() => {
+        this.innerText = originalText;
+        this.style.background = originalBg;
+      }, 2000);
+    } else {
+      // If everything is empty
+      alert("Please add text before submitting.");
+    }
   });
 }
 
-// Initialize for both boxes
+// Initialize for your specific boxes
 handleFormSubmit("submitFeedback", ".box-2");
-handleFormSubmit("submitRefund", ".box-4");</script>
+handleFormSubmit("submitRefund", ".box-4");
+</script>
 </html>
 5
