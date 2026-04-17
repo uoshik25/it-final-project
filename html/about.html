@@ -87,6 +87,152 @@
         </div>
       </div>
     </main>
+    <div
+      class="glass-card"
+      style="max-width: 800px; margin: 40px auto; padding: 30px"
+    >
+      <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 30px">
+        Company Structure & Stats
+      </h3>
+
+      <div style="overflow-x: auto; display: flex; justify-content: center">
+        <table
+          class="stats-table"
+          style="margin: 0 auto; border: 2px solid #ff6b35; width: 95%"
+        >
+          <thead>
+            <tr>
+              <th style="border-bottom: 2px solid #ff6b35; padding: 15px">
+                Department
+              </th>
+              <th style="border-bottom: 2px solid #ff6b35; padding: 15px">
+                Details
+              </th>
+              <th style="border-bottom: 2px solid #ff6b35; padding: 15px">
+                Lead Personnel
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                rowspan="2"
+                style="
+                  font-weight: bold;
+                  color: var(--accent);
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                  padding: 15px;
+                "
+              >
+                Game selling
+              </td>
+              <td
+                style="
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                  padding: 15px;
+                "
+              >
+                Bat team
+              </td>
+              <td
+                style="
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                  padding: 15px;
+                "
+              >
+                <div class="profile-container">
+                  <div class="profile-avatar">PORK</div>
+                  <div class="profile-info">
+                    <span class="name">oshik </span>
+                    <span class="role">Manager</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                style="
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                  padding: 15px;
+                "
+              >
+                <table class="nested-table" style="width: 100%">
+                  <tr>
+                    <td>Art Dept</td>
+                    <td>Audio Dept</td>
+                  </tr>
+                </table>
+              </td>
+              <td
+                style="
+                  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                  padding: 15px;
+                "
+              >
+                <div class="profile-container">
+                  <div class="profile-avatar">CHOP</div>
+                  <div class="profile-info">
+                    <span class="name">Oshik</span>
+                    <span class="role">Worker</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td
+                colspan="3"
+                class="table-footer-cell"
+                style="padding: 20px; text-align: center"
+              >
+                Total Games Released Worldwide:
+                <span style="color: var(--accent); font-size: 1.2rem">15</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    ```
+
+    <script>
+      /* Your existing Search JS remains exactly the same */
+      (function () {
+        const searchBtn = document.getElementById("searchBtn");
+        let overlay = null;
+        function createOverlay() {
+          overlay = document.createElement("div");
+          overlay.className = "floating-search";
+          overlay.innerHTML = `<input type="search" placeholder="Search games..."/><button class="close-btn">✕</button>`;
+          document.body.appendChild(overlay);
+          const input = overlay.querySelector("input");
+          const close = overlay.querySelector(".close-btn");
+          setTimeout(() => input.focus(), 120);
+          close.addEventListener("click", removeOverlay);
+          function onDocClick(e) {
+            if (!overlay.contains(e.target) && e.target !== searchBtn)
+              removeOverlay();
+          }
+          document.addEventListener("pointerdown", onDocClick);
+          overlay._cleanup = () =>
+            document.removeEventListener("pointerdown", onDocClick);
+        }
+        function removeOverlay() {
+          if (!overlay) return;
+          overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
+            duration: 200,
+          }).onfinish = () => {
+            if (overlay._cleanup) overlay._cleanup();
+            overlay.remove();
+            overlay = null;
+          };
+        }
+        searchBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          overlay ? removeOverlay() : createOverlay();
+        });
+      })();
+    </script>
+
     <footer class="game-footer">
       <div class="footer-container">
         <div class="footer-column brand-section">
@@ -94,50 +240,25 @@
           <p>
             Your ultimate destination for digital keys and legendary adventures.
           </p>
+          <div class="address-info" style="margin-top: 20px; font-size: 0.9rem">
+            <p><strong>Headquarters:</strong></p>
+            <p>Kathmandu,Nepal</p>
+            <p>The British Collage, Thapathali</p>
+            <p style="margin-top: 10px">
+              <a
+                href="mailto:support@porkchopgames.com"
+                style="color: #ff6b35; text-decoration: underline"
+                >Email: support@porkchopgames.com</a
+              >
+            </p>
+          </div>
+
           <div class="social-icons">
             <a href="#">Discord</a>
             <a href="#">Twitch</a>
             <a href="#">X</a>
           </div>
         </div>
-        <script>
-          /* Your existing Search JS remains exactly the same */
-          (function () {
-            const searchBtn = document.getElementById("searchBtn");
-            let overlay = null;
-            function createOverlay() {
-              overlay = document.createElement("div");
-              overlay.className = "floating-search";
-              overlay.innerHTML = `<input type="search" placeholder="Search games..."/><button class="close-btn">✕</button>`;
-              document.body.appendChild(overlay);
-              const input = overlay.querySelector("input");
-              const close = overlay.querySelector(".close-btn");
-              setTimeout(() => input.focus(), 120);
-              close.addEventListener("click", removeOverlay);
-              function onDocClick(e) {
-                if (!overlay.contains(e.target) && e.target !== searchBtn)
-                  removeOverlay();
-              }
-              document.addEventListener("pointerdown", onDocClick);
-              overlay._cleanup = () =>
-                document.removeEventListener("pointerdown", onDocClick);
-            }
-            function removeOverlay() {
-              if (!overlay) return;
-              overlay.animate([{ opacity: 1 }, { opacity: 0 }], {
-                duration: 200,
-              }).onfinish = () => {
-                if (overlay._cleanup) overlay._cleanup();
-                overlay.remove();
-                overlay = null;
-              };
-            }
-            searchBtn.addEventListener("click", (e) => {
-              e.stopPropagation();
-              overlay ? removeOverlay() : createOverlay();
-            });
-          })();
-        </script>
 
         <div class="footer-column">
           <h3>Explore</h3>
